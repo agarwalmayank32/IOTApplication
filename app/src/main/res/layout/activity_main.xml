@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="#fff"
+    tools:context="com.mayankag.iotapplication.MainActivity">
+
+    <LinearLayout
+        android:baselineAligned="false"
+        android:id="@+id/LL1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:contentDescription="@string/lightimage_content_description"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/light_off"
+                android:id="@+id/LightButton"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClickLightChange"
+                android:adjustViewBounds="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:contentDescription="@string/fanimage_content_description"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/fan"
+                android:id="@+id/FanButton"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClickFanChange"/>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:baselineAligned="false"
+        android:id="@+id/LL2"
+        android:layout_below="@+id/LL1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:contentDescription="@string/acimage_content_description"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/ac_off"
+                android:id="@+id/AcButton"
+                android:onClick="onClickAcChange"
+                android:layout_marginStart="-20dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:contentDescription="@string/tvimage_content_description"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/tv_off"
+                android:id="@+id/TvButton"
+                android:onClick="onClickTvChange"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:baselineAligned="false"
+        android:id="@+id/LL3"
+        android:layout_below="@+id/LL2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:contentDescription="@string/projectorimage_content_description"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/projector_off"
+                android:id="@+id/ProjectorButton"
+                android:onClick="onClickProjectorChange"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:contentDescription="@string/pcimage_content_description"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/pc_off"
+                android:id="@+id/PcButton"
+                android:onClick="onClickPcChange"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LL4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LL3"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Light Intensity"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

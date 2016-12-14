@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">IOT Application</string>
+    <string name="lightimage_content_description">LightImage</string>
+    <string name="fanimage_content_description">FanImage</string>
+    <string name="acimage_content_description">AcImage</string>
+    <string name="projectorimage_content_description">ProjectorImage</string>
+    <string name="tvimage_content_description">TvImage</string>
+    <string name="pcimage_content_description">PcImage</string>
+</resources>

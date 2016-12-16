@@ -48,7 +48,7 @@ public class BluetoothDeviceList extends AppCompatActivity {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         // Device does not support Bluetooth
         if (btAdapter == null) {
-            Toast.makeText(BluetoothDeviceList.this,"Bluetooth is Not Supported",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Bluetooth is Not Supported",Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -79,7 +79,7 @@ public class BluetoothDeviceList extends AppCompatActivity {
     // When startActivityForResult completes...
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_BLUETOOTH_ENABLE) {
-            Toast.makeText(BluetoothDeviceList.this,"Bluetooth Enabled",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Bluetooth Enabled",Toast.LENGTH_SHORT).show();
             setup();
         }
         else{
@@ -127,7 +127,6 @@ public class BluetoothDeviceList extends AppCompatActivity {
 
             try {
                 bluetoothSocket = device.createRfcommSocketToServiceRecord(myUUID);
-                //textStatus.setText("bluetoothSocket: \n" + bluetoothSocket);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -149,7 +148,7 @@ public class BluetoothDeviceList extends AppCompatActivity {
                     public void run() {
                         if(eMessage.contains("socket might closed"))
                         {
-                            Toast.makeText(BluetoothDeviceList.this,"Other Device is not ON",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BluetoothDeviceList.this,"The Device is not connected",Toast.LENGTH_SHORT).show();
                         }
                     }});
 

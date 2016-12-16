@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private int stateProjector = 0;
     private int statePc = 0;
 
-    String message;
-
     private static final int REQUEST_BLUETOOTH_ENABLE = 1;
     BluetoothAdapter btAdapter;
 
@@ -43,9 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
-
         bluetoothSocket = BluetoothDeviceList.btSocket;
-        //Toast.makeText(MainActivity.this,bluetoothSocket.getRemoteDevice().getName(),Toast.LENGTH_SHORT).show();
 
         LightIntensity1 = (LinearLayout) findViewById(R.id.LL5);
         LightIntensity2 = (LinearLayout) findViewById(R.id.LL6);
@@ -103,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         private final InputStream connectedInputStream;
         private final OutputStream connectedOutputStream;
 
-        public ThreadConnected(BluetoothSocket socket) {
+        ThreadConnected(BluetoothSocket socket) {
             connectedBluetoothSocket = socket;
             InputStream in = null;
             OutputStream out = null;
@@ -130,18 +126,17 @@ public class MainActivity extends AppCompatActivity {
                     final String msgReceived = new String(buffer, 0, bytes);
 
                     runOnUiThread(new Runnable(){
-
                         @Override
                         public void run() {
                             Toast.makeText(MainActivity.this,msgReceived,Toast.LENGTH_SHORT).show();
                         }});
 
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
 
                     final String msgConnectionLost = e.getMessage();
                     runOnUiThread(new Runnable(){
-
                         @Override
                         public void run() {
                             if(msgConnectionLost.contains("socket closed")) {

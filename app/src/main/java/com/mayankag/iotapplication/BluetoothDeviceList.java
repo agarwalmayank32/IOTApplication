@@ -32,6 +32,8 @@ public class BluetoothDeviceList extends AppCompatActivity {
 
     ThreadConnectBTdevice myThreadConnectBTdevice;
 
+    public static BluetoothSocket btSocket;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,6 +169,7 @@ public class BluetoothDeviceList extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(BluetoothDeviceList.this,msgconnected,Toast.LENGTH_SHORT).show();
+                        btSocket = bluetoothSocket;
                         startActivity(new Intent(BluetoothDeviceList.this,MainActivity.class));
                     }});
 

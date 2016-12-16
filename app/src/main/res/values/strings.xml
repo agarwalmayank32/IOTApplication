@@ -6,4 +6,5 @@
     <string name="projectorimage_content_description">ProjectorImage</string>
     <string name="tvimage_content_description">TvImage</string>
     <string name="pcimage_content_description">PcImage</string>
+    <string name="light_intensity_text">Light Intensity</string>
 </resources>

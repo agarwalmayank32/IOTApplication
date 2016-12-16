@@ -223,7 +223,7 @@ public class BluetoothConnectionReceiving extends AppCompatActivity {
                     runOnUiThread(new Runnable(){
                         @Override
                         public void run() {
-                            Toast.makeText(BluetoothConnectionReceiving.this,"Connection Term",Toast.LENGTH_SHORT).show();
+                            Message.setText("Connection Terminated");
                         }});
                 }
             }

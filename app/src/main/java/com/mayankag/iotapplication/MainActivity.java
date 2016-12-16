@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private int stateTv = 0;
     private int stateProjector = 0;
     private int statePc = 0;
+    SeekBar seekBar1,seekBar2;
 
     private static final int REQUEST_BLUETOOTH_ENABLE = 1;
     BluetoothAdapter btAdapter;
@@ -47,12 +49,47 @@ public class MainActivity extends AppCompatActivity {
         LightIntensity2 = (LinearLayout) findViewById(R.id.LL6);
 
         Light1 = (ImageButton) findViewById(R.id.LightButton);
+        seekBar1 = (SeekBar)findViewById(R.id.SeekBar1);
         Fan = (ImageButton) findViewById(R.id.FanButton);
         Ac = (ImageButton) findViewById(R.id.AcButton);
         Tv = (ImageButton) findViewById(R.id.TvButton);
         Projector = (ImageButton) findViewById(R.id.ProjectorButton);
         Pc = (ImageButton) findViewById(R.id.PcButton);
         Light2 = (ImageButton) findViewById(R.id.LightButton2);
+        seekBar2 = (SeekBar)findViewById(R.id.SeekBar2);
+
+
+        seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                sendMessage("Light 1 Intensity Changed to "+String.valueOf(i));
+                //Toast.makeText(MainActivity.this,String.valueOf(i),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                sendMessage("Light 2 Intensity Changed to "+String.valueOf(i));
+                //Toast.makeText(MainActivity.this,String.valueOf(i),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
     }
 
     @Override

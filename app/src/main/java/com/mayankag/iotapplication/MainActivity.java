@@ -16,7 +16,6 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                sendMessage(i + 48);
+                sendMessage(i + 65);
                 //Toast.makeText(MainActivity.this,String.valueOf(i),Toast.LENGTH_SHORT).show();
             }
 

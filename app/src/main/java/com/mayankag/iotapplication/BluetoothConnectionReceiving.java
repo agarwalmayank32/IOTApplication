@@ -168,7 +168,7 @@ public class BluetoothConnectionReceiving extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //startActivity(new Intent(BluetoothConnectionReceiving.this,BluetoothConnectionReceiving.class));
+            setup();
         }
     }
 

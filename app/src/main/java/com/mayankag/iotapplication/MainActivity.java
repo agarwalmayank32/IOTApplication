@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
     ThreadConnected myThreadConnected;
     BluetoothSocket bluetoothSocket;
+
+    int Light1OFF = 97, Light1ON = 98;
+    int FanON = 99,FanOFF = 100;
+    int AcON = 101,AcOFF = 102;
+    int TvON = 103,TvOFF = 104;
+    int ProjectorON = 105,ProjectorOFF = 106;
+    int PcON = 107,PcOFF = 108;
+    int Light2ON = 109,Light2OFF =110;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
         seekBar2 = (SeekBar)findViewById(R.id.SeekBar2);
 
 
+        seekBar1.setMax(9);
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                sendMessage("Light 1 Intensity Changed to "+String.valueOf(i));
-                //Toast.makeText(MainActivity.this,String.valueOf(i),Toast.LENGTH_SHORT).show();
+                sendMessage(i + 48);
             }
 
             @Override
@@ -74,10 +83,11 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+        seekBar2.setMax(9);
         seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                sendMessage("Light 2 Intensity Changed to "+String.valueOf(i));
+                sendMessage(i + 48);
                 //Toast.makeText(MainActivity.this,String.valueOf(i),Toast.LENGTH_SHORT).show();
             }
 
@@ -119,10 +129,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-//        if(myThreadConnectBTdevice!=null){
-//            myThreadConnectBTdevice.cancel();
-//        }
     }
 
     private void startThreadConnected(BluetoothSocket socket){
@@ -178,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             if(msgConnectionLost.contains("socket closed")) {
                                 Toast.makeText(MainActivity.this,"Connection Terminated",Toast.LENGTH_SHORT).show();
+                                finish();
                                 cancel();
                             }
                         }});
@@ -185,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        void write(byte[] buffer) {
+        void write(byte buffer) {
             try {
                 connectedOutputStream.write(buffer);
             } catch (IOException e) {
@@ -214,14 +221,15 @@ public class MainActivity extends AppCompatActivity {
             Light1.setBackgroundResource(R.drawable.light_on);
             stateLight1 = 1;
 
-            sendMessage("Light 1 ON");
+            sendMessage(Light1OFF);
+
 
         } else {
             LightIntensity1.setVisibility(View.INVISIBLE);
             Light1.setBackgroundResource(R.drawable.light_off);
             stateLight1 = 0;
 
-            sendMessage("Light 1 OFF");
+            sendMessage(Light1ON);
         }
     }
 
@@ -244,13 +252,13 @@ public class MainActivity extends AppCompatActivity {
             });
             stateFan = 1;
 
-            sendMessage("FAN ON");
+            sendMessage(FanON);
 
         } else {
             Fan.setAnimation(null);
             stateFan = 0;
 
-            sendMessage("FAN OFF");
+            sendMessage(FanOFF);
         }
     }
 
@@ -260,13 +268,13 @@ public class MainActivity extends AppCompatActivity {
             Ac.setBackgroundResource(R.drawable.ac_on);
             stateAc = 1;
 
-            sendMessage("AC ON");
+            sendMessage(AcON);
 
         } else {
             Ac.setBackgroundResource(R.drawable.ac_off);
             stateAc = 0;
 
-            sendMessage("AC OFF");
+            sendMessage(AcOFF);
 
         }
     }
@@ -277,13 +285,13 @@ public class MainActivity extends AppCompatActivity {
             Tv.setBackgroundResource(R.drawable.tv_on);
             stateTv = 1;
 
-            sendMessage("TV ON");
+            sendMessage(TvON);
 
         } else {
             Tv.setBackgroundResource(R.drawable.tv_off);
             stateTv = 0;
 
-            sendMessage("TV OFF");
+            sendMessage(TvOFF);
 
         }
     }
@@ -293,13 +301,13 @@ public class MainActivity extends AppCompatActivity {
             Projector.setBackgroundResource(R.drawable.projector_on);
             stateProjector = 1;
 
-            sendMessage("PROJECTOR ON");
+            sendMessage(ProjectorON);
 
         } else {
             Projector.setBackgroundResource(R.drawable.projector_off);
             stateProjector = 0;
 
-            sendMessage("PROJECTOR OFF");
+            sendMessage(ProjectorOFF);
 
         }
     }
@@ -309,13 +317,13 @@ public class MainActivity extends AppCompatActivity {
             Pc.setBackgroundResource(R.drawable.pc_on);
             statePc = 1;
 
-            sendMessage("PC ON");
+            sendMessage(PcON);
 
         } else {
             Pc.setBackgroundResource(R.drawable.pc_off);
             statePc = 0;
 
-            sendMessage("PC OFF");
+            sendMessage(PcOFF);
 
         }
     }
@@ -326,23 +334,23 @@ public class MainActivity extends AppCompatActivity {
             Light2.setBackgroundResource(R.drawable.light_on);
             stateLight2 = 1;
 
-            sendMessage("Light 2 ON");
+            sendMessage(Light2ON);
 
         } else {
             LightIntensity2.setVisibility(View.INVISIBLE);
             Light2.setBackgroundResource(R.drawable.light_off);
             stateLight2 = 0;
 
-            sendMessage("Light 2 OFF");
+            sendMessage(Light2OFF);
         }
     }
 
-    public void sendMessage(String mess)
+    public void sendMessage(int mess)
     {
         if(myThreadConnected!=null){
-            byte[] bytesToSend = mess.getBytes();
-            myThreadConnected.write(bytesToSend);
+            //byte[] bytesToSend = ByteBuffer.allocate(4).putInt(mess).array();
+            //myThreadConnected.write(bytesToSend);
+            myThreadConnected.write((byte)mess);
         }
     }
-
 }

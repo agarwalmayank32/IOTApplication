@@ -5,11 +5,14 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -20,7 +23,8 @@ import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout LightIntensity1, LightIntensity2;
+    private RelativeLayout RelativeLayout;
+    private LinearLayout LightIntensity1;
     private ImageButton Light1, Light2, Fan, Ac, Tv, Projector, Pc;
     private int stateLight1 = 0;
     private int stateLight2 = 0;
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private int stateTv = 0;
     private int stateProjector = 0;
     private int statePc = 0;
-    SeekBar seekBar1,seekBar2;
+    SeekBar seekBar1;
 
     private static final int REQUEST_BLUETOOTH_ENABLE = 1;
     BluetoothAdapter btAdapter;
@@ -37,13 +41,21 @@ public class MainActivity extends AppCompatActivity {
     ThreadConnected myThreadConnected;
     BluetoothSocket bluetoothSocket;
 
-    int Light1OFF = 97, Light1ON = 98;
-    int FanON = 99,FanOFF = 100;
-    int AcON = 101,AcOFF = 102;
-    int TvON = 103,TvOFF = 104;
-    int ProjectorON = 105,ProjectorOFF = 106;
-    int PcON = 107,PcOFF = 108;
-    int Light2ON = 109,Light2OFF =110;
+    int Light1ON = 97;                                //a
+    int Light1OFF = 98;                               //b
+    int FanON = 99;                                   //c
+    int FanOFF = 100;                                 //d
+    int AcON = 101;                                   //e
+    int AcOFF = 102;                                  //f
+    int TvON = 103;                                   //g
+    int TvOFF = 104;                                  //h
+    int ProjectorON = 105;                            //i
+    int ProjectorOFF = 106;                           //j
+    int PcON = 107;                                   //k
+    int PcOFF = 108;                                  //l
+    int Light2ON = 109;                               //m
+    int Light2OFF =110;                               //n
+    int sync = 35;                                    //#
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         bluetoothSocket = BluetoothDeviceList.btSocket;
 
+        RelativeLayout = (RelativeLayout)findViewById(R.id.RL);
         LightIntensity1 = (LinearLayout) findViewById(R.id.LL5);
-        LightIntensity2 = (LinearLayout) findViewById(R.id.LL6);
 
         Light1 = (ImageButton) findViewById(R.id.LightButton);
         seekBar1 = (SeekBar)findViewById(R.id.SeekBar1);
@@ -64,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
         Projector = (ImageButton) findViewById(R.id.ProjectorButton);
         Pc = (ImageButton) findViewById(R.id.PcButton);
         Light2 = (ImageButton) findViewById(R.id.LightButton2);
-        seekBar2 = (SeekBar)findViewById(R.id.SeekBar2);
-
 
         seekBar1.setMax(9);
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -73,32 +83,13 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 sendMessage(i + 48);
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        seekBar2.setMax(9);
-        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                sendMessage(i + 65);
-                //Toast.makeText(MainActivity.this,String.valueOf(i),Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
     }
 
     @Override
@@ -170,7 +161,14 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable(){
                         @Override
                         public void run() {
-                            Toast.makeText(MainActivity.this,msgReceived,Toast.LENGTH_SHORT).show();
+                            if(msgReceived.equals("@"))
+                            {
+                                RelativeLayout.setVisibility(View.VISIBLE);
+                            }
+                            else
+                            {
+                                Toast.makeText(MainActivity.this,msgReceived,Toast.LENGTH_SHORT).show();
+                            }
                         }});
 
                 }
@@ -183,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             if(msgConnectionLost.contains("socket closed")) {
                                 Toast.makeText(MainActivity.this,"Connection Terminated",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this,BluetoothDeviceList.class));
                                 finish();
                                 cancel();
                             }
@@ -220,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
             Light1.setBackgroundResource(R.drawable.light_on);
             stateLight1 = 1;
 
-            sendMessage(Light1OFF);
+            sendMessage(Light1ON);
 
 
         } else {
@@ -228,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
             Light1.setBackgroundResource(R.drawable.light_off);
             stateLight1 = 0;
 
-            sendMessage(Light1ON);
+            sendMessage(Light1OFF);
         }
     }
 
@@ -329,14 +328,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickLight2Change(View view) {
         if (stateLight2 == 0) {
-            LightIntensity2.setVisibility(View.VISIBLE);
             Light2.setBackgroundResource(R.drawable.light_on);
             stateLight2 = 1;
 
             sendMessage(Light2ON);
 
         } else {
-            LightIntensity2.setVisibility(View.INVISIBLE);
             Light2.setBackgroundResource(R.drawable.light_off);
             stateLight2 = 0;
 
@@ -352,4 +349,27 @@ public class MainActivity extends AppCompatActivity {
             myThreadConnected.write((byte)mess);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            sendMessage(sync);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

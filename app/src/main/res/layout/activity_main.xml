@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -8,8 +7,10 @@
     android:background="#fff">
 
     <RelativeLayout
+        android:id="@+id/RL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="invisible">
 
         <LinearLayout
             android:baselineAligned="false"
@@ -196,29 +197,6 @@
 
             <SeekBar
                 android:id="@+id/SeekBar1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LL6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/LL4"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            android:layout_marginStart="@dimen/activity_horizontal_margin">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/light_intensity_text"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-
-            <SeekBar
-                android:id="@+id/SeekBar2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"/>

@@ -53,6 +53,9 @@ public class BluetoothDeviceList extends AppCompatActivity {
             return;
         }
 
+        //ec79da00-853f-11e4-b4a9-0800200c9a66 for Android-Android
+        //00001101-0000-1000-8000-00805F9B34FB for Android-Arduino
+
         myUUID = UUID.fromString("ec79da00-853f-11e4-b4a9-0800200c9a66");
 
         deviceList = (ListView)findViewById(R.id.deviceList);
@@ -170,6 +173,7 @@ public class BluetoothDeviceList extends AppCompatActivity {
                         Toast.makeText(BluetoothDeviceList.this,msgconnected,Toast.LENGTH_SHORT).show();
                         btSocket = bluetoothSocket;
                         startActivity(new Intent(BluetoothDeviceList.this,MainActivity.class));
+                        finish();
                     }});
 
                 //startThreadConnected(bluetoothSocket);
